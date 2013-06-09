@@ -5,7 +5,7 @@ CXX		=	g++
 RM		=	rm -f
 
 CXXFLAGS	=	-W -Wextra -Wall -O3
-CXXFLAGS	+=	-Iheaders/
+CXXFLAGS	+=	-I../src/
 
 LDFLAGS		=	
 
@@ -24,7 +24,6 @@ $(NAME)		:	$(OBJS)
 clean		:
 			-@$(RM) $(OBJS)
 			@$(ECHO) '\033[1;37;41m> Directory cleaned\033[0m'
-			-@$(RM) *.fifo
 
 fclean		:	clean
 			-@$(RM) $(NAME)
