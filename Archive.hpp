@@ -5,13 +5,13 @@
 
 namespace			Archive
 {
-  bool				open(std::ofstream &file, std::string const & path)
+  inline bool			open(std::ofstream &file, std::string const & path)
   {
     file.open(path.c_str(), std::ios::out | std::ios::binary);
     return (!file.fail());
   }
 
-  bool				open(std::ifstream &file, std::string const & path)
+  inline bool			open(std::ifstream &file, std::string const & path)
   {
     file.open(path.c_str(), std::ios::out | std::ios::binary);
     return (!file.fail());
@@ -21,7 +21,7 @@ namespace			Archive
   ** Serialize T
   */
   template <typename T>
-  void				serialize(std::ofstream &file, T const & a)
+  inline void			serialize(std::ofstream &file, T const & a)
   {
     file.write(reinterpret_cast<const char *>(&a), sizeof(a));
   }
@@ -29,7 +29,7 @@ namespace			Archive
   /*
   ** Serialize std::string
   */
-  void				serialize(std::ofstream &file, std::string const & a)
+  inline void			serialize(std::ofstream &file, std::string const & a)
   {
     serialize(file, (int)(a.size()));
     file.write(a.c_str(), a.size());
@@ -39,7 +39,7 @@ namespace			Archive
   ** Unserialize T
   */
   template <typename T>
-  void				unserialize(std::ifstream &file, T & a)
+  inline void			unserialize(std::ifstream &file, T & a)
   {
     file.read(reinterpret_cast<char *>(&a), sizeof(a));
   }
@@ -47,7 +47,7 @@ namespace			Archive
   /*
   ** Unserialize std::string
   */
-  void				unserialize(std::ifstream &file, std::string & a)
+  inline void			unserialize(std::ifstream &file, std::string & a)
   {
     int				strSize;
 
