@@ -21,7 +21,7 @@ namespace			Archive
   ** Serialize T
   */
   template <typename T>
-  void				serialize(std::ofstream &file, T a)
+  void				serialize(std::ofstream &file, T const & a)
   {
     file.write(reinterpret_cast<const char *>(&a), sizeof(a));
   }
@@ -39,9 +39,9 @@ namespace			Archive
   ** Unserialize T
   */
   template <typename T>
-  void				unserialize(std::ifstream &file, T *a)
+  void				unserialize(std::ifstream &file, T & a)
   {
-    file.read(reinterpret_cast<char *>(a), sizeof(*a));
+    file.read(reinterpret_cast<char *>(&a), sizeof(a));
   }
 
   /*
@@ -51,7 +51,7 @@ namespace			Archive
   {
     int				strSize;
 
-    unserialize(file, &strSize);
+    unserialize(file, strSize);
 
     char			buffer[strSize + 1];
     file.read(buffer, strSize);

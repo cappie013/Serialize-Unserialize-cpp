@@ -22,9 +22,9 @@ int				main(void)
   int				width1, test1;
   std::string			map1;
 
-  Archive::unserialize(f2, &width1);
+  Archive::unserialize(f2, width1);
   Archive::unserialize(f2, map1);
-  Archive::unserialize(f2, &test1);
+  Archive::unserialize(f2, test1);
 
   f2.close();
 
