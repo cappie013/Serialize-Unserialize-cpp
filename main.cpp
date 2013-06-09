@@ -6,12 +6,14 @@ int				main(void)
 {
   std::string			map = "0123";
   int				width = 5, test = 2;
-  Archive			archive;
-  std::ofstream			f1("toto.dat", std::ios::out | std::ios::binary);
+  std::ofstream			f1;
 
-  archive.serialize(f1, width);
-  archive.serialize(f1, map);
-  archive.serialize(f1, test);
+  if (!Archive::open(f1, "toto.dat"))
+    return -1;
+
+  Archive::serialize(f1, width);
+  Archive::serialize(f1, map);
+  Archive::serialize(f1, test);
 
   f1.close();
 
@@ -20,13 +22,15 @@ int				main(void)
   int				width1, test1;
   std::string			map1;
 
-  archive.unserialize(f2, &width1);
-  archive.unserialize(f2, &map1);
-  archive.unserialize(f2, &test1);
+  Archive::unserialize(f2, width1);
+  Archive::unserialize(f2, map1);
+  Archive::unserialize(f2, test1);
 
   f2.close();
 
   std::cout << "Width : " << width1 << std::endl;
   std::cout << "Map Value : " << map1 << std::endl;
   std::cout << test1 << std::endl;
+
+  return 0;
 }
