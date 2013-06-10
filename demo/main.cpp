@@ -15,12 +15,14 @@ int				main(void)
   Archive::serialize(f1, map);
   Archive::serialize(f1, test);
 
-  f1.close();
+  Archive::close(f1);
 
-  std::ifstream			f2("toto.dat", std::ios::out | std::ios::binary);
-
+  std::ifstream			f2;
   int				width1, test1;
   std::string			map1;
+
+  if (!Archive::open(f2, "toto.dat"))
+    return -1;
 
   Archive::unserialize(f2, width1);
   Archive::unserialize(f2, map1);
@@ -31,6 +33,8 @@ int				main(void)
   std::cout << "Width : " << width1 << std::endl;
   std::cout << "Map Value : " << map1 << std::endl;
   std::cout << test1 << std::endl;
+
+  Archive::close(f2);
 
   return 0;
 }

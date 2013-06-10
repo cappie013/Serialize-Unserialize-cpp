@@ -5,9 +5,10 @@ CXX		=	g++
 RM		=	rm -f
 
 CXXFLAGS	=	-W -Wextra -Wall -O3
-CXXFLAGS	+=	-Iheaders/
 
-LDFLAGS		=	
+CXXFLAGS	+=	-I../src/
+
+LDFLAGS		=
 
 SRCS		=	main.cpp
 

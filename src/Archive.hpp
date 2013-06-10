@@ -5,18 +5,6 @@
 
 namespace			Archive
 {
-  inline bool			open(std::ofstream &file, std::string const & path)
-  {
-    file.open(path.c_str(), std::ios::out | std::ios::binary);
-    return (!file.fail());
-  }
-
-  inline bool			open(std::ifstream &file, std::string const & path)
-  {
-    file.open(path.c_str(), std::ios::out | std::ios::binary);
-    return (!file.fail());
-  }
-
   /*
   ** Serialize T
   */
@@ -58,6 +46,41 @@ namespace			Archive
     buffer[strSize] = '\0';
     a.assign(buffer);
   }
+
+  inline bool			open(std::ofstream &file, std::string const & path)
+  {
+    file.open(path.c_str(), std::ios::out | std::ios::binary);
+    return (!file.fail());
+  }
+
+  inline bool			open(std::ifstream &file, std::string const & path)
+  {
+    unsigned int		s;
+    unsigned int		rs;
+
+    file.open(path.c_str(), std::ios::out | std::ios::binary);
+    if (file.fail())
+      return false;
+    file.seekg(0, std::ios::end);
+    s = file.tellg();
+    file.seekg(s - sizeof(int));
+    unserialize(file, rs);
+    file.seekg(0, std::ios::beg);
+    return (s - sizeof(int) == rs);
+  }
+
+  inline void			close(std::ofstream &file)
+  {
+    file.seekp(0, std::ios::end);
+    serialize(file, (int)(file.tellp()));
+    file.close();
+  }
+
+  inline void			close(std::ifstream &file)
+  {
+    file.close();
+  }
+
 }
 
 #endif				/* !ARCHIVE_HPP_ */
